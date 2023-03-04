@@ -82,9 +82,29 @@
     <script>
         let passwordLength = 16
         const inputE1 = document.querySelector('#password')
+        const upperCaseCheckE1 = document.querySelector('#uppercase-check')
+        const numberCheckE1 = document.querySelector('#numbers-check')
+        const symbolCheckE1 = document.querySelector('#symbol-check')
+
         function generatePassword() {
-            const chars =
-                "abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789?!@&*()[]"
+            let chars = "abcdefghjkmnpqrstuvwxyz"
+
+            const upperCaseChars = "ABCDEFGHJKLMNPQRSTUVWXYZ"
+            const numberChars = "123456789"
+            const symbolChars = "?!@&*()[]"
+
+            if (upperCaseCheckE1.checked) {
+                chars += upperCaseChars
+            }
+
+            if (numberCheckE1.checked) {
+                chars += numberChars
+            }
+
+            if (symbolCheckE1.checked) {
+                chars += symbolChars
+            }
+
             let password = ""
 
             for (let i = 0; i < passwordLength; i++) {
@@ -108,6 +128,10 @@
             //console.log(passwordLength)
             generatePassword()
         })
+        upperCaseCheckE1.addEventListener('click', generatePassword)
+        numberCheckE1.addEventListener('click', generatePassword)
+        symbolCheckE1.addEventListener('click', generatePassword)
+
         document.querySelector('#copy-1').addEventListener('click', copy)
         document.querySelector('#copy-2').addEventListener('click', copy)
         generatePassword()
