@@ -123,9 +123,36 @@
         function calculateQuality() {
             // 20% -> critico => 100% algo safe
 
-            const percent = Math.round((passwordLength / 64) * 100)
+
+            const percent = Math.round(
+                (passwordLength / 64) * 25 +
+                (upperCaseCheckE1.checked ? 15 : 0) +
+                (numberCheckE1.checked ? 25 : 0) +
+                (symbolCheckE1.checked ? 35 : 0)
+
+            )
 
             securityIndicatorBarE1.style.width = `${percent}%`
+
+            if (percent > 69) {
+                securityIndicatorBarE1.classList.remove('critical')
+                securityIndicatorBarE1.classList.remove('warning')
+                securityIndicatorBarE1.classList.add('safe')
+            } else if (percent > 50) {
+                securityIndicatorBarE1.classList.remove('critical')
+                securityIndicatorBarE1.classList.add('warning')
+                securityIndicatorBarE1.classList.remove('safe')
+            } else {
+                securityIndicatorBarE1.classList.add('critical')
+                securityIndicatorBarE1.classList.remove('warning')
+                securityIndicatorBarE1.classList.remove('safe')
+            }
+            if (percent >= 100) {
+                securityIndicatorBarE1.classList.add('completed')
+            } else {
+                securityIndicatorBarE1.classList.remove('completed')
+
+            }
         }
         function copy() {
             navigator.clipboard.writeText(inputE1.value)
