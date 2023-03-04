@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="security-indicator">
-                <div id="security-indicator-bar" class="bar safe" style="width: 90%;"></div>
+                <div id="security-indicator-bar" class="bar safe" style="width: 100%;"></div>
             </div>
         </section>
 
@@ -85,6 +85,7 @@
         const upperCaseCheckE1 = document.querySelector('#uppercase-check')
         const numberCheckE1 = document.querySelector('#numbers-check')
         const symbolCheckE1 = document.querySelector('#symbol-check')
+        const securityIndicatorBarE1 = document.querySelector('#security-indicator-bar')
 
         function generatePassword() {
             let chars = "abcdefghjkmnpqrstuvwxyz"
@@ -114,10 +115,18 @@
             }
 
             inputE1.value = password;
+            calculateQuality();
 
             ///console.log(password);
         }
 
+        function calculateQuality() {
+            // 20% -> critico => 100% algo safe
+
+            const percent = Math.round((passwordLength / 64) * 100)
+
+            securityIndicatorBarE1.style.width = `${percent}%`
+        }
         function copy() {
             navigator.clipboard.writeText(inputE1.value)
         }
@@ -125,6 +134,7 @@
         const passwordlengthE1 = document.querySelector('#password-length')
         passwordlengthE1.addEventListener("input", function () {
             passwordLength = passwordlengthE1.value
+            document.querySelector('#password-length-text').innerText = passwordLength
             //console.log(passwordLength)
             generatePassword()
         })
